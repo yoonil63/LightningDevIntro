@@ -1,0 +1,67 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes">
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="author" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+	<div class="slds">
+        <div class="slds-m-around--small slds-p-top--large">
+            <div class="slds-form--stacked">
+                <h1 class="slds-text-heading__label">Enter new Album</h1>
+
+				<div class="slds-form-element">
+                	<div class="slds-form-element__control">
+		                <ui:inputText label="Name"
+                                      aura:id="Name"
+                                      class="slds-input"
+                                      labelClass="slds-form-element__label"
+                                      value="{!v.name}" />
+                    </div>
+                </div>
+
+				<div class="slds-form-element">
+                	<div class="slds-form-element__control">
+		                <ui:inputText label="Author"
+                                      aura:id="Author"
+                                      class="slds-input"
+                                      labelClass="slds-form-element__label"
+                                      value="{!v.author}" />
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <ui:inputSelect label="Genre" 
+                                        aura:id="Genre" 
+                                        class="slds-select" 
+                                        labelClass="slds-form-element__label" />
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <ui:inputSelect label="Rate" 
+                                        aura:id="Rate" 
+                                        class="slds-select" 
+                                        labelClass="slds-form-element__label" />
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <ui:inputSelect label="Status" 
+                                        aura:id="Status" 
+                                        class="slds-select" 
+                                        labelClass="slds-form-element__label" />
+                    </div>
+                </div>
+
+				<div class="slds-form-element">
+					<ui:button label="Submit"
+							   press="{!c.newAlbum}"
+							   class="slds-button slds-button--neutral" />
+                </div>
+
+            </div>
+        </div>
+    </div>	
+</aura:component>

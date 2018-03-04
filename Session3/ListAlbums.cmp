@@ -1,0 +1,9 @@
+<aura:component >
+    <aura:attribute name="albums" type="String[]" default="['Album 1', 'Album 2', 'Album 3']" />
+
+    <div>
+        <aura:iteration items="{!v.albums}" var="album">
+            <ui:outputText value="{!album}"/><br/>
+        </aura:iteration>
+    </div>
+</aura:component>

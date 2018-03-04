@@ -1,0 +1,74 @@
+public with sharing class AlbumApexController
+{
+    @AuraEnabled
+    public static List<Album__c> getAlbums()
+    {
+        return [SELECT Id, Name, Author__r.Name, CoverUrl__c, Genre__c, Rate__c, Status__c FROM Album__c];
+    }
+	
+    @AuraEnabled
+    public static Album__c insertAlbum(Album__c album, String author)
+    {
+        ID authorId;
+        
+        try
+        {
+			authorId = [SELECT Id FROM Author__c WHERE Name = :author].Id;
+        }
+        catch(Exception e)
+        {
+            throw new AuraHandledException('Author name not found.');
+        }
+	
+        album.Author__c = authorId;
+        
+        insert album;
+        return [SELECT Id, Name, Author__r.Name, CoverUrl__c, Genre__c, Rate__c, Status__c FROM Album__c WHERE id= :album.Id];
+    }    
+	
+	@AuraEnabled
+    public static Album__c updateAlbum(Album__c album)
+    {
+        update album;
+        return album;
+    }
+
+    @AuraEnabled
+    public static Album__c getCover(Album__c album)
+    {
+        string domain = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo';
+        string api_key = 'api_key=39ab6b7b17733bb11d7ffaf61addab9c';
+        string artist = 'artist=' + EncodingUtil.urlEncode(album.Author__r.Name,'UTF-8');
+        string title = 'album=' + EncodingUtil.urlEncode(album.Name,'UTF-8');
+
+        string endpoint = domain + '&' + api_key + '&' + artist + '&' +  title + '&format=json';
+        System.debug(endpoint);
+        
+	    Http h = new Http();
+	    HttpRequest req = new HttpRequest();
+	    req.setEndpoint(endpoint);
+    	req.setMethod('GET');
+        HttpResponse res = h.send(req);
+                        
+		if (res.getStatusCode() == 200)
+        {
+            Map<String, Object> root = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
+            Map<String, Object> albumMap = (Map<String, Object>)root.get('album');
+            List<Object> sizes = (List<Object>)albumMap.get('image');
+            Map<String, Object> medium = (Map<String, Object>)sizes.get(1);
+
+            string url = (string)medium.get('#text');            
+            System.debug(url);
+            
+            album.CoverUrl__c = url;
+            update album;
+	    }
+        else
+        {
+            System.debug('Unexpected error.');            
+        }
+        
+        return album;
+     }                        
+    
+}

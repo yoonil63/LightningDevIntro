@@ -1,0 +1,15 @@
+<aura:component >
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="author" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div>
+        <h1>Enter new Album</h1>
+        <ui:inputText label="Name" aura:id="Name" value="{!v.name}" />
+        <ui:inputText label="Author" aura:id="Author" value="{!v.author}" />
+        <ui:inputSelect label="Genre" aura:id="Genre" />
+        <ui:inputSelect label="Rate" aura:id="Rate" />
+        <ui:inputSelect label="Status" aura:id="Status" />
+        <ui:button label="Submit" press="{!c.newAlbum}" />
+    </div>
+</aura:component>

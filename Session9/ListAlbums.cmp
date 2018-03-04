@@ -1,0 +1,44 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="AlbumApexController">
+    <aura:attribute name="albums" type="Album__c[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds">
+        <div class="slds-m-around--small slds-p-top--large">
+            <aura:iteration items="{!v.albums}" var="album">
+                
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                          <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-contact">
+							<lightning:icon iconName="custom:custom49" size="small"/>
+                            </span>
+                          </div>
+                          <div class="slds-media__body">
+                            <h2>
+                                <ui:outputText class="slds-text-heading--small" value="{!album.Name}"/>
+                            </h2>
+                          </div>
+                        </header>
+                    </div>
+                    
+                    <div class="slds-card__body">    
+                        <p class="slds-truncate, slds-card__body--inner">Author:
+                            <ui:outputText value="{!album.Author__r.Name}" />
+                        </p>                            
+                        <p class="slds-truncate, slds-card__body--inner">Genre:
+                            <ui:outputText value="{!album.Genre__c}" />
+                        </p>
+                        <p class="slds-truncate, slds-card__body--inner">Rate:
+                            <ui:outputText value="{!album.Rate__c}" />
+                        </p>                            
+                        <p class="slds-truncate, slds-card__body--inner">Status:
+                            <ui:outputText value="{!album.Status__c}" />
+                        </p>                            
+                    </div>
+                </article>
+                
+            </aura:iteration>
+        </div>
+    </div>
+</aura:component>

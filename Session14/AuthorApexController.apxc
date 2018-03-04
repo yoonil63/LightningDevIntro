@@ -1,0 +1,17 @@
+public class AuthorApexController
+{
+    @AuraEnabled
+    public static List<Author__c> fetchAuthor(String searchKeyWord)
+    {
+        String searchKey = searchKeyWord + '%';
+        List<Author__c> returnList = new List<Author__c>();
+        List<Author__c> authors = [select id, Name from Author__c where Name LIKE: searchKey];
+        
+        for (Author__c item: authors)
+        {
+            returnList.add(item);
+        }
+        
+        return returnList;
+    }
+}

@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Fired when a new Album is entered">
+    <aura:attribute name="album" type="Album__c" />
+</aura:event>

@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="AlbumApexController">
+    <aura:attribute name="albums" type="Album__c[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:AddToAlbumsList" action="{!c.handleAddToAlbums}" />
+    
+    <div class="slds">
+        <div class="slds-m-around--small slds-p-top--large">
+            <aura:iteration items="{!v.albums}" var="album">
+                <c:Album album="{!album}" />
+            </aura:iteration>
+        </div>
+    </div>
+</aura:component>

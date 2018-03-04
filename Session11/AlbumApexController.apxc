@@ -1,0 +1,29 @@
+public with sharing class AlbumApexController
+{
+    @AuraEnabled
+    public static List<Album__c> getAlbums()
+    {
+        return [SELECT Id, Name, Author__r.Name, CoverUrl__c, Genre__c, Rate__c, Status__c FROM Album__c];
+    }
+	
+    @AuraEnabled
+    public static Album__c insertAlbum(Album__c album, String author)
+    {
+        ID authorId;
+        
+        try
+        {
+			authorId = [SELECT Id FROM Author__c WHERE Name = :author].Id;
+        }
+        catch(Exception e)
+        {
+            throw new AuraHandledException('Author name not found.');
+        }
+	
+        album.Author__c = authorId;
+        
+        insert album;
+        return [SELECT Id, Name, Author__r.Name, CoverUrl__c, Genre__c, Rate__c, Status__c FROM Album__c WHERE id= :album.Id];
+    }    
+	
+}

@@ -1,0 +1,8 @@
+public with sharing class AlbumApexController
+{
+    @AuraEnabled
+    public static List<Album__c> getAlbums()
+    {
+        return [SELECT Id, Name, Author__r.Name, CoverUrl__c, Genre__c, Rate__c, Status__c FROM Album__c];
+    }
+}

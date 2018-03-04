@@ -1,0 +1,15 @@
+<aura:component >
+    <aura:attribute name="author" type="Author__c" />
+    <aura:registerEvent name="controlEvent" type="c:selectAuthorEvent"/>
+    
+    <li role="presentation">
+        <span class="slds-lookup__item-action slds-media slds-media--center" id="lookup-option-350" role="option">
+         <div class="slds-media__body">
+          <div class="slds-input-has-icon slds-input-has-icon--right">
+              <lightning:icon class="slds-input__icon slds-show" iconName="standard:avatar" size="x-small"/>
+            <div class="slds-lookup__result-text"><a onclick="{!c.selectAuthor}">{!v.author.Name}</a></div>
+          </div>
+        </div>    
+        </span>
+    </li>
+</aura:component>

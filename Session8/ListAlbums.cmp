@@ -1,0 +1,28 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes">
+    <aura:attribute name="albums" type="String[]" default="['Album 1', 'Album 2', 'Album 3']" />
+
+    <div class="slds">
+        <div class="slds-m-around--small slds-p-top--large">
+            <aura:iteration items="{!v.albums}" var="album">
+                
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                          <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-contact">
+							<lightning:icon iconName="custom:custom49" size="small"/>
+                            </span>
+                          </div>
+                          <div class="slds-media__body">
+                            <h2>
+                                <ui:outputText class="slds-text-heading--small" value="{!album}"/>
+                            </h2>
+                          </div>
+                        </header>
+                    </div>                    
+                </article>
+                
+            </aura:iteration>
+        </div>
+    </div>
+</aura:component>

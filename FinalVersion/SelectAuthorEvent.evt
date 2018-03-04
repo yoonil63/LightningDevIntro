@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="fired when an author is selected">
+    <aura:attribute name="author" type="Author__c"/>
+</aura:event>
